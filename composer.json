@@ -1,0 +1,18 @@
+{
+    "name": "dezsidog/flysystem-baidu-bos",
+    "description": "flysystem for baidu bos",
+    "type": "library",
+    "license": "apache 2.0",
+    "require": {
+        "php": ">=7.1",
+        "dezsidog/baidu-bos": "^0.8.24",
+        "phpunit/phpunit": "^6.4",
+        "league/flysystem": "^1.0"
+    },
+    "autoload": {
+        "psr-4":{
+            "Dezsidog\\BaiduBos\\": "src/",
+            "Tests\\": "tests/"
+        }
+    }
+}
