@@ -5,7 +5,7 @@
     "license": "apache 2.0",
     "require": {
         "php": ">=7.1",
-        "dezsidog/baidu-bos": "^0.8.24",
+        "dezsidog/baidu-bos-sdk": "^0.8.24",
         "phpunit/phpunit": "^6.4",
         "league/flysystem": "^1.0"
     },
