@@ -25,10 +25,27 @@ class BaiduBosAdapter extends AbstractAdapter
      */
     protected $bucket;
 
-    public function __construct(BosClient $client, string $bucket)
+    /**
+     * 带协议头的域名(不要最后的/)
+     * @var string
+     */
+    protected $domain;
+
+    /**
+     * uri的前缀,比如前缀是 'upload',则最后的结果时http://www.xxx.com/upload/xxx.jpg
+     * @var string
+     */
+    protected $uri_prefix;
+
+    public function __construct(BosClient $client, string $bucket, string $domain, string $uri_prefix = '')
     {
         $this->client = $client;
         $this->bucket = $bucket;
+        $this->domain = $domain;
+        if (substr($uri_prefix,0,1) == '/') {
+            $uri_prefix = substr($uri_prefix,1);
+        }
+        $this->uri_prefix = substr($uri_prefix,-1) == '/' ?: $uri_prefix.'/';
     }
 
     /**
@@ -306,5 +323,31 @@ class BaiduBosAdapter extends AbstractAdapter
     public function getBucket()
     {
         return $this->bucket;
+    }
+
+    /**
+     * 获取url
+     * 访问方式为cdn域名+key，如：
+     * http://amiedu.cdn.bcebos.com/jpg_dyp_app-img-banner.jpg
+     * @param string $path
+     * @return string
+     */
+    public function getUrl(string $path): string
+    {
+        $url = $this->domain;
+
+        if (substr($url,-1) != '/') {
+            $url .= '/';
+        }
+
+        if ($this->uri_prefix) {
+            $url .= $this->uri_prefix;
+        }
+
+        if (substr($path,0,1) == '/') {
+            $path = substr($path,1);
+        }
+
+        return $url.$path;
     }
 }
