@@ -334,6 +334,9 @@ class BaiduBosAdapter extends AbstractAdapter
      */
     public function getUrl(string $path): string
     {
+        if (!$this->domain) {
+            return '';
+        }
         $url = $this->domain;
 
         if (substr($url,-1) != '/') {
