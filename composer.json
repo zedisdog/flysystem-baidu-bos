@@ -5,7 +5,6 @@
     "license": "apache 2.0",
     "require": {
         "php": ">=7.1",
-        "dezsidog/baidu-bos-sdk": "^0.8.24",
         "phpunit/phpunit": "^6.4",
         "league/flysystem": "^1.0"
     },
@@ -13,6 +12,9 @@
         "psr-4":{
             "Dezsidog\\BaiduBos\\": "src/",
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "lib/BaiduBce.phar"
+        ]
     }
 }
