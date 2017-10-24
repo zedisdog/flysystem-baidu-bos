@@ -29,13 +29,19 @@ class AdapterTest extends TestCase
 
     protected $bos_key = 'test.file';
 
+    protected $bucket;
+
 
     public function setUp()
     {
         global $BOS_TEST_CONFIG;
         parent::setUp();
         $client = new BosClient($BOS_TEST_CONFIG);
-        $adapter = new BaiduBosAdapter($client,'testzed');
+
+        $this->bucket = 'testzed'.rand(10000,99999);
+        $client->createBucket($this->bucket);
+
+        $adapter = new BaiduBosAdapter($client,$this->bucket);
         $this->filesystem = new Filesystem($adapter);
     }
 
@@ -55,6 +61,8 @@ class AdapterTest extends TestCase
         } catch (BceServiceException $exception) {
             return;
         }
+
+        $client->deleteBucket($this->bucket);
     }
 
     public function testWrite()

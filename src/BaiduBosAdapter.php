@@ -6,9 +6,7 @@ declare(strict_types=1);
  * Date: 17-10-20
  * Time: 下午5:53
  */
-
 namespace Dezsidog\BaiduBos;
-
 
 use BaiduBce\Exception\BceServiceException;
 use BaiduBce\Services\Bos\BosClient;
