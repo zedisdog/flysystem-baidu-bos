@@ -38,6 +38,9 @@ class AdapterTest extends TestCase
         parent::setUp();
         $client = new BosClient($BOS_TEST_CONFIG);
 
+        if ($this->bucket && $client->doesBucketExist($this->bucket)) {
+            $client->deleteBucket($this->bucket);
+        }
         $this->bucket = 'testzed'.rand(10000,99999);
         $client->createBucket($this->bucket);
 
