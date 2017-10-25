@@ -41,7 +41,7 @@ class AdapterTest extends TestCase
         $this->bucket = 'testzed'.rand(10000,99999);
         $client->createBucket($this->bucket);
 
-        $adapter = new BaiduBosAdapter($client,$this->bucket);
+        $adapter = new BaiduBosAdapter($client,$this->bucket,'');
         $this->filesystem = new Filesystem($adapter);
     }
 
@@ -70,7 +70,8 @@ class AdapterTest extends TestCase
         $this->assertTrue($this->filesystem->write($this->bos_key,'123'));
         file_put_contents($this->file,'123');
         $this->filesystem->delete($this->bos_key);
-        $this->assertTrue($this->filesystem->write($this->bos_key,$this->file));
+        $this->assertTrue(file_exists($this->file));
+        $this->assertTrue($this->filesystem->writeStream($this->bos_key,fopen($this->file,'r')));
     }
 
     public function testRead()
