@@ -10,6 +10,8 @@ namespace Dezsidog\BaiduBos;
 
 use BaiduBce\Exception\BceServiceException;
 use BaiduBce\Services\Bos\BosClient;
+use BaiduBce\Services\Bos\BosOptions;
+use baidubce\util\MimeTypes;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Config;
 
@@ -74,7 +76,12 @@ class BaiduBosAdapter extends AbstractAdapter
      */
     public function writeStream($path, $resource, Config $config)
     {
-        $options = $config->get('options',[]);
+        $options = [];
+        if (!$config->has(BosOptions::CONTENT_TYPE)) {
+            $options[BosOptions::CONTENT_TYPE] = MimeTypes::guessMimeType($path);
+        }else{
+            $options[BosOptions::CONTENT_TYPE] = $config->get(BosOptions::CONTENT_TYPE);
+        }
         return $this->client->putObjectFromString($this->bucket,$path,stream_get_contents($resource),$options);
     }
 
