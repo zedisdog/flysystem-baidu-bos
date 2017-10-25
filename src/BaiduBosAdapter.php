@@ -75,7 +75,7 @@ class BaiduBosAdapter extends AbstractAdapter
     public function writeStream($path, $resource, Config $config)
     {
         $options = $config->get('options',[]);
-        return $this->client->putObjectFromString($this->bucket,$path,$resource,$options);
+        return $this->client->putObjectFromString($this->bucket,$path,stream_get_contents($resource),$options);
     }
 
     /**
