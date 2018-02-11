@@ -2,7 +2,7 @@
     "name": "dezsidog/flysystem-baidu-bos",
     "description": "flysystem for baidu bos",
     "type": "library",
-    "license": "apache 2.0",
+    "license": "Apache-2.0",
     "require": {
         "php": ">=7.1",
         "phpunit/phpunit": "^6.4",
